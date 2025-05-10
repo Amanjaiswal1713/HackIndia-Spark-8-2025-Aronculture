@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart AI Meeting Interface</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #E0F7FA;
+      color: #333;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #4FC3F7;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    .main {
+      flex: 1;
+      display: flex;
+      overflow: auto;
+    }
+
+    .video-area {
+      flex: 3;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      padding: 1rem;
+      background-color: #FFFFFF;
+    }
+
+    .participant {
+      background-color: #B5BFA6;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 180px;
+      font-size: 0.9rem;
+      color: white;
+    }
+
+    .sidebar {
+      flex: 1;
+      background-color: #FFFFFF;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      border-left: 1px solid #ccc;
+    }
+
+    .sidebar h3 {
+      color: #4FC3F7;
+      margin-bottom: 0.5rem;
+    }
+
+    .task-list,
+    .summary,
+    .controls {
+      background-color: #FFFFFF;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .footer {
+      background-color: #FFFFFF;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      border-top: 1px solid #ccc;
+      flex-wrap: wrap;
+    }
+
+    .control-btn {
+      background-color: #4FC3F7;
+      border: none;
+      color: white;
+      padding: 0.7rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: background 0.2s ease;
+      width: 48px;
+      height: 48px;
+    }
+
+    .leave-btn {
+      background-color: #FF4F4F;
+      width: 48px;
+      height: 48px;
+    }
+
+    .footer .control-btn {
+      width: 48px;
+      height: 48px;
+      justify-content: center;
+    }
+
+    .control-btn i {
+      font-size: 1.2rem;
+    }
+
+    .footer .control-btn:hover {
+      background-color: #0288D1;
+    }
+    .control-btn[title] {
+      position: relative;
+    }
+
+    .control-btn[title]:hover::after {
+      content: attr(title);
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #4FC3F7;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>AI Smart Meeting</h1>
+    <div class="meeting-timer">⏱ 14:23 elapsed</div>
+  </header>
+
+  <div class="main">
+    <div class="video-area">
+      <div class="participant">You</div>
+      <div class="participant">Alice</div>
+      <div class="participant">Bob</div>
+      <div class="participant">Carol</div>
+    </div>
+
+    <aside class="sidebar">
+      <div class="controls">
+        <h3>Aron - AI Assistant Controls</h3>
+        <button id="toggleAssistant" class="control-btn" title="Start/Stop Aron">
+          <i class="fas fa-play"></i>
+        </button>
+        <button id="summarizeBtn" class="control-btn" aria-label="Summarize meeting" title="Summarize Meeting">
+          <i class="fas fa-align-left"></i>
+        </button>
+        <button id="assignTaskBtn" class="control-btn" aria-label="Assign task" title="Assign Task">
+          <i class="fas fa-tasks"></i>
+        </button>
+        <button id="viewTasksBtn" class="control-btn" aria-label="View assigned tasks" title="View Tasks">
+          <i class="fas fa-external-link-alt"></i>
+        </button>
+      </div>
+
+      <div class="summary">
+        <h3>Live Summary</h3>
+        <ul>
+          <li>Discussed project timelines</li>
+          <li>Decided on Q3 targets</li>
+          <li>Need feedback from design team</li>
+        </ul>
+      </div>
+
+      <div class="task-list">
+        <h3>Action Items</h3>
+        <ul id="taskItems">
+          <li>✅ Alice: Send updated roadmap</li>
+          <li>🕒 Bob: Finalize UI mockups</li>
+          <li>🕒 You: Schedule next review</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <footer class="footer">
+    <button id="muteBtn" class="control-btn" title="Mute/Unmute">
+      <i class="fas fa-microphone"></i>
+    </button>
+    <button id="videoBtn" class="control-btn" title="Disable/Enable Video">
+      <i class="fas fa-video"></i>
+    </button>
+    <button id="endMeeting" class="control-btn leave-btn" title="End Meeting">
+      <i class="fas fa-sign-out-alt"></i>
+    </button>
+  </footer>
+
+  <script>
+    const muteBtn = document.getElementById('muteBtn');
+    const videoBtn = document.getElementById('videoBtn');
+    const statusMessage = document.getElementById('statusMessage');
+    let isMuted = false;
+    let isVideoDisabled = false;
+
+    muteBtn.addEventListener('click', () => {
+      isMuted = !isMuted;
+      if (isMuted) {
+        statusMessage.textContent = "You are muted.";
+      } else {
+        statusMessage.textContent = "You are unmuted.";
+      }
+      statusMessage.style.display = 'block';
+      setTimeout(() => {
+        statusMessage.style.display = 'none';
+      }, 3000);
+    });
+
+    videoBtn.addEventListener('click', () => {
+      isVideoDisabled = !isVideoDisabled;
+      if (isVideoDisabled) {
+        statusMessage.textContent = "Video is disabled.";
+      } else {
+        statusMessage.textContent = "Video is enabled.";
+      }
+      statusMessage.style.display = 'block';
+      setTimeout(() => {
+        statusMessage.style.display = 'none';
+      }, 3000);
+    });
+
+    document.getElementById('endMeeting').addEventListener('click', () => {
+      const confirmLeave = window.confirm("Are you sure you want to leave the meeting?");
+      if (confirmLeave) {
+        window.location.href = "index.html";
+      }
+    });
+
+    document.getElementById('viewTasksBtn').addEventListener('click', () => {
+      window.location.href = "tasks.html";
+    });
+
+    document.getElementById('summarizeBtn').addEventListener('click', () => {
+      window.location.href = "summarize.html";
+    });
+
+    document.getElementById('assignTaskBtn').addEventListener('click', () => {
+      window.location.href = "assign-task.html"; 
+    });
+  </script>
+</body>
+</html>

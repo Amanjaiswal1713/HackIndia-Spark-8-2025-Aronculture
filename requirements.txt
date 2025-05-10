@@ -1,0 +1,7 @@
+flask
+openai
+openai-whisper
+moviepy
+ffmpeg-python
+slack_sdk
+torch

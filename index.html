@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart AI Meeting Interface</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #F0F8FF;
+      color: #333;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #007BFF;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 1rem;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #666;
+    }
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      padding: 3rem;
+      border-radius: 15px;
+      box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    .main h2 {
+      font-size: 2rem;
+      color: #007BFF;
+      margin-bottom: 2rem;
+    }
+
+    .main button {
+      background-color: #007BFF;
+      color: white;
+      font-size: 1.2rem;
+      padding: 1rem 3rem;
+      border-radius: 30px;
+      cursor: pointer;
+      margin: 0.5rem;
+      width: 250px;
+      border: none;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .main button:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 20px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .footer p {
+      color: #666;
+    }
+
+    .footer a {
+      color: #007BFF;
+      text-decoration: none;
+      font-size: 1rem;
+      margin-left: 5px;
+      transition: color 0.3s;
+    }
+
+    .footer a:hover {
+      color: #0056b3;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>AI Smart Meeting</h1>
+    <p>Welcome to the next-generation AI-driven meetings!</p>
+  </header>
+
+  <div class="main">
+    <h2>Choose an option to begin</h2>
+    <button onclick="startMeeting()">Start Instant Meeting</button>
+    <button onclick="scheduleMeeting()">Schedule a Meeting</button>
+  </div>
+
+  <div class="footer">
+    <p>Created with ❤️ by <a href="https://your-portfolio-link.com" target="_blank">Your Name</a></p>
+  </div>
+
+  <script>
+    function startMeeting() {
+      window.location.href = "meetings.html";
+    }
+
+    function scheduleMeeting() {
+      alert('Scheduling a Meeting...');
+    }
+  </script>
+
+</body>
+
+</html>
